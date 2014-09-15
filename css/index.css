@@ -1,0 +1,93 @@
+#banner {
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-image: url("../banner_bg.png");
+	background-image-repeat: repeat-x;
+	width: 100%;
+	z-index: 1;
+}
+
+body, html {
+	width: 100%;
+	z-index: 999;
+}
+
+#wrapper {
+	margin-top: 65px;
+}
+
+#login {
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0;
+}
+/*
+img {
+	-webkit-animation: fadeIn 2s;
+	-moz-animation: fadeIn 2s;
+	-ms-animation: fadeIn 2s;
+	-o-animation: fadeIn 2s;
+	animation: fadeIn 2s;
+}
+
+@-webkit-keyframes fadeIn {
+	from{opacity:0;}
+	to{opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+	from{opacity:0;}
+	to{opacity:1;}
+}
+@-ms-keyframes fadeIn {
+	from{opacity:0;}
+	to{opacity:1;}
+}
+@-o-keyframes fadeIn {
+	from{opacity:0;}
+	to{opacity:1;}
+}
+@keyframes fadeIn {
+	from{opacity:0;}
+	to{opacity:1;}
+}
+*/
+#processing {
+	font-weight: bold;
+	font-family: 'Myriad Pro', 'Lucidia Grande', Helvetica, sans-serif;
+	margin-top: 100px;
+	text-align: center;
+	font-size: 72pt;
+	-webkit-animation: pulse 1s infinite alternate;
+	-moz-animation: pulse 1s infinite alternate;
+	-ms-animation: pulse 1s infinite alternate;
+	-o-animation: pulse 1s infinite alternate;
+	animation: pulse 1s infinite alternate;
+}
+
+@-webkit-keyframes pulse {
+	from { color: black; }
+	to { color: #999; }
+}
+@-moz-keyframes pulse {
+	from { color: black; }
+	to { color: #999; }
+}
+@-ms-keyframes pulse {
+	from { color: black; }
+	to { color: #999; }
+}
+@-o-keyframes pulse {
+	from { color: black; }
+	to { color: #999; }
+}
+@keyframes pulse {
+	from { color: black; }
+	to { color: #999; }
+}
+
+#moreUploaded:hover, #removeUploaded:hover {
+	color:#0091D7;
+}

@@ -435,6 +435,7 @@ q {
 
 .ui-menu-item {
 	width: 100%;
+	display: block;
 }
 
 ul {

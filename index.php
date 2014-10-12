@@ -9,7 +9,7 @@ header('Location: mobile.php');
 	$limit = 1000000;
 	if (isset($_POST['noLimit'])) {
 		setcookie('limit', 1000000, time()-3600);
-		header("Location: http://fathomless-spire-1079.herokuapp.com/index.php");
+		header("Location: index.php");
 	}else if (isset($_POST['limit']) && is_numeric($_POST['limit'])) {
 		$limit = $_POST['limit'];
 		setcookie('limit', $_POST['limit'], time() + 100000000);
@@ -46,8 +46,8 @@ header('Location: mobile.php');
     <link href="css/index2.css" rel="stylesheet" type="text/css" />
     <link href="icon.png" rel="icon" type="image/png" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script>
 	
 		// Functions necessary to interact with main.js
@@ -218,5 +218,3 @@ header('Location: mobile.php');
 
 
 </script>
-
-<!-- WHERE THE HTML STARTS OMGGG -->

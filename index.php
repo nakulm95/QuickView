@@ -9,7 +9,7 @@ header('Location: mobile.php');
 	$limit = 1000000;
 	if (isset($_POST['noLimit'])) {
 		setcookie('limit', 1000000, time()-3600);
-		header("Location: http://fathomless-spire-1079.herokuapp.com/index.php");
+		header("Location: index.php");
 	}else if (isset($_POST['limit']) && is_numeric($_POST['limit'])) {
 		$limit = $_POST['limit'];
 		setcookie('limit', $_POST['limit'], time() + 100000000);
@@ -35,6 +35,47 @@ header('Location: mobile.php');
 	$since *= 31556926;
 	$until -= 1970;
 	$until *= 31556926;
+	/*
+	$meID;
+	$searchID;
+	if (isset($_POST['meID']) && strlen($_POST['meID']) > 0) {
+		$meID = $_POST['meID'];
+	}
+	if (isset($_POST['searchID']) && strlen($_POST['searchID']) > 0) {
+		$searchID = $_POST['searchID'];
+	}
+	if (strlen($meID) > 0 && strlen($searchID) > 0) {
+		if (file_exists('admin/' . $meID . '.txt')) {
+			$searches = file('admin/' . $meID . '.txt');
+			$found = false;
+			$count = 1;
+			$index = 0;
+			foreach ($searches as $search) {
+				$pair = explode(',', $search);
+				if ($pair[0] == $searchID) {
+					$found = true;
+					$count = $pair[1] + 1;
+					break;
+				}
+				$index++;
+			}
+			$index2 = 0;
+			if ($found) {
+				file_put_contents('admin/' . $meID . '.txt', $searchID . ',' . $count . "\n");
+				foreach ($searches as $search) {
+					if ($index2 != $index) {
+						file_put_contents('admin/' . $meID . '.txt', $search, FILE_APPEND);
+					}
+					$index2++;
+				}
+			} else {
+				file_put_contents('admin/' . $meID . '.txt', $searchID . ',' . $count . "\n", FILE_APPEND);
+			}
+		} else {
+			file_put_contents('admin/' . $meID . '.txt', $searchID . ',1' . "\n", FILE_APPEND);
+		}
+	}
+	*/
 	
 ?>
 
@@ -43,11 +84,11 @@ header('Location: mobile.php');
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>QuickView</title>
-    <link href="css/index2.css" rel="stylesheet" type="text/css" />
+    <link href="css/index.css" rel="stylesheet" type="text/css" />
     <link href="icon.png" rel="icon" type="image/png" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script>
 	
 		// Functions necessary to interact with main.js
@@ -90,7 +131,7 @@ header('Location: mobile.php');
 <div id="largePic"></div>
 <div id="all">
     <div id="banner">
-        <a href="index.php"><img id="binoc" src="banner_binoc.png" alt="QuickView"/></a><!--<img id="settingsImg" src="settings.png">--><br />
+        <a href="index.php"><img id="binoc" src="banner_binoc.png" alt="QuickView"/></a><!--<img id="settingsImg" src="info.png">--><br />
     </div>
     <div id="wrapper">
         <div id="search">
@@ -99,7 +140,7 @@ header('Location: mobile.php');
                 <div id="submit">
                     Timeframe (optional): From <input id="from" placeholder="Year (2004-2014)" name="from" type="text" pattern="^20((0[4-9])|1[0-4])(\.\d*)?$"> 
                     to <input id="until"  placeholder="Year (exclusive)" name="until" type="text" pattern="^20((0[4-9])|1[0-5])(\.\d*)?$">
-                    <input type="submit" value="search" />
+                    <input type="submit" value="search" id="searchMe" />
                 </div>
             </form>
         </div>
@@ -214,9 +255,3 @@ header('Location: mobile.php');
 </div>
 </body>
 </html>
-<script>
-
-
-</script>
-
-<!-- WHERE THE HTML STARTS OMGGG -->

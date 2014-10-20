@@ -1,0 +1,3 @@
+<Directory /admin/>
+deny from all
+</Directory>

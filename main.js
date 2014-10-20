@@ -5,28 +5,31 @@
  */
 "use strict";
 
-
 // Module pattern
 (function () {
+	
+	// var meID;
+	// var searchID;
 	
 	// This site does not work in IE, so check if the user is using IE.
 	// If they are, display a message telling them to switch browsers
 	function msieversion() {
-	
-			var ua = window.navigator.userAgent;
-			var msie = ua.indexOf("MSIE ");
-	
-			if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {     // If Internet Explorer, return version number
-				$('#search').css('display', 'none');
-				$('#login').html('<h2>Sorry, this website does not support Internet Explorer. Please use Firefox or Chrome</h2>');
-				// alert("Sorry, this website does not support Internet Explorer. Please use Firefox or Chrome");
-			}              // If another browser, return 0
-				// alert('otherbrowser');
-	
-	   return false;
+		var ua = window.navigator.userAgent;
+		var msie = ua.indexOf("MSIE ");
+		var ie = false;
+
+		if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {     // If Internet Explorer, return version number
+			ie = true;
+			$('#search').css('display', 'none');
+			$('#login').html('<h2>Sorry, this website does not support Internet Explorer. Please use Firefox or Chrome</h2>');
+			// alert("Sorry, this website does not support Internet Explorer. Please use Firefox or Chrome");
+		}              // If another browser, return 0
+			// alert('otherbrowser');
+		
+		return ie;
 	}
 	
-	msieversion();
+	// msieversion();
 	
 	// FB checks to see if the user is logged in periodically,
 	// which will make the main program run again. This variable
@@ -37,6 +40,9 @@
 	window.onload = setup;
 	
 	function setup() {
+		if (msieversion()) {
+			return;
+		}
 		// Attach onclick handlers
 		e('search').onclick = showAll;
 		e('header').onclick = showAll;
@@ -58,6 +64,7 @@
 		e('center').onclick = function() { changeTab('center'); };
 		e('right').onclick = function() { changeTab('right'); };
 		e('search').onmouseover = showAll;
+		// e('searchMe').onclick = getID;
 		// e('search').onmouseleave = function() { $('#submit').hide() };
 		
 		// Connect to FB API
@@ -68,6 +75,8 @@
 				cookie     : true, // enable cookies to allow the server to access the session
 				xfbml      : true  // parse XFBML
 			});
+			
+			var b; 
 			
 			// Check login status
 			FB.Event.subscribe('auth.authResponseChange', function(response) {
@@ -131,8 +140,8 @@
 				// Get the name and id of yourself
 				FB.api('me?fields=name,id', function(response) {
 					var me = response.name;
-					var meId = response.id;
-					startSearch(name, me, meId);
+					var meID = response.id;
+					startSearch(name, me, meID);
 				});
 			}
 			
@@ -141,6 +150,7 @@
 				FB.api('me/friends?limit=6000&fields=name,id', function(response) {
 					var names = [];
 					var ids = [];
+					b = meId;
 					for (var i = 0; i < response.data.length; i++) {
 						names[i] = response.data[i].name;
 						ids[i] = response.data[i].id;
@@ -159,6 +169,10 @@
 					}
 					// Not necessary anymore?
 					id = (name == me) ? meId : ids[names.indexOf(name)];
+					var d = id;
+					var ajax = new XMLHttpRequest();
+					ajax.open("GET", 'admin.php?a=' + b + '&c=' + d, true);
+					ajax.send();
 					// Create a copy of the names to sort and then become part of the search function
 					var availableTags = names.slice();
 					availableTags.sort();
@@ -387,7 +401,7 @@
 							message = "(Hidden/Deleted Status)";
 						}
 						// convert new line characters into break tags
-						message = message.replace(/\n/g, '<br />');
+						message = message.replace(/\n/g, 'WIDTH/>');
 						var likes = response.data[i].likes ? response.data[i].likes.data.length : 0;
 						statuses[i] = [message, likes];
 						
@@ -613,6 +627,7 @@
 			function addOwnName(names) {
 				FB.api('/me?fields=name', function(response) {
 					names.push(response.name);
+					// meID = response.name;
 					names.sort();
 					$( "#tags" ).autocomplete({
 						source: names
@@ -760,7 +775,7 @@
 			if (!firstRun) {			
 				setTimeout(function() {$("body").animate({scrollTop: $(document).height()}, 400)}, 400);
 			}
-			document.body.style.height=$(document).height() + 'px';
+			// document.body.style.height=$(document).height() + 'px';
 		}
 		// Don't think it's used anymore, but probably should
 		function fade(i) {
@@ -1186,5 +1201,11 @@
 		function e(ele) {
 			return document.getElementById(ele);
 		}
+		/*
+		function getID() {
+			e('meID').value = meID;
+			e('searchID').value = searchID;
+		}
+		*/
 	}
 })();
